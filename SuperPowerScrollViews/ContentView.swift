@@ -38,6 +38,13 @@ struct ContentView: View {
                                                 count: verticalSizeClass == .regular ? 2 : 4,
                                                 spacing: 16)
                         .foregroundStyle(item.color.gradient)
+                        .scrollTransition { content, phase in
+                            content
+                                .opacity(phase.isIdentity ? 1.0 : 0.4)
+                                .scaleEffect(x: phase.isIdentity ? 1.0 : 0.3,
+                                             y: phase.isIdentity ? 1.0 : 0.3)
+                                .offset(y: phase.isIdentity ? 0 : 50)
+                        }
                 }
             }
             .scrollTargetLayout()

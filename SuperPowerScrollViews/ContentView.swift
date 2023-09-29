@@ -26,17 +26,24 @@ struct MockData {
 }
 
 struct ContentView: View {
+    
+    @Environment(\.verticalSizeClass) var verticalSizeClass
+    
     var body: some View {
         ScrollView(.horizontal) {
             HStack {
                 ForEach(MockData.items) { item in
                     Circle()
-                        .frame(width: 100, height: 100)
+                        .containerRelativeFrame(.horizontal, 
+                                                count: verticalSizeClass == .regular ? 2 : 4,
+                                                spacing: 16)
                         .foregroundStyle(item.color.gradient)
                 }
             }
+            .scrollTargetLayout()
         }
-        .padding()
+        .contentMargins(16, for: .scrollContent)
+        .scrollTargetBehavior(.viewAligned)
     }
 }
 
